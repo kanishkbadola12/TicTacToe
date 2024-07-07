@@ -1,11 +1,8 @@
 <button
-  id={{@id}}
+  id={{this.item.id}}
   type="button"
-  {{on "click" (fn this.updatePlayer @id)}}
-  class="grid-item {{if this.playerService.isMatchOver 'disable'}}"
+  {{on "click" (fn this.updatePlayer this.item.id)}}
+  class="grid-item beat {{if this.isClickedOrMatchOver 'disable'}}"
 >
-
-  {{#if this.showPlayer}}
-    <span>{{this.player}}</span>
-  {{/if}}
+  <div>{{this.item.player}}</div>
 </button>

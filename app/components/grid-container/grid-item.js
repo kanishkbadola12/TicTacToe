@@ -5,8 +5,7 @@ import { service } from '@ember/service';
 
 export default class GridItemComponent extends Component {
   @service('track-players') playerService;
-  @tracked showPlayer = false;
-  @tracked player;
+  @tracked item = this.args.item;
 
   disableCell = (id) => {
     const gridItem = document.getElementById(id);
@@ -19,16 +18,16 @@ export default class GridItemComponent extends Component {
     });
   };
 
+  get
+  isClickedOrMatchOver() {
+    return this.item.isCellClicked || this.playerService.isMatchOver;
+  }
+
   @action
-  updatePlayer(id) {
-    this.showPlayer = true;
-    this.player = this.playerService.currentPlayer;
-    const nextPlayer = this.playerService.currentPlayer === 'X' ? 'O' : 'X'
-    this.playerService.setCurrentPlayer(nextPlayer);
-    this.args.updateGameData(id);
-    if(!this.playerService.isMatchStarted) {
-      this.playerService.setIsMatchStarted(true);
+  updatePlayer() {
+    if(!this.playerService.hasMatchStarted) {
+      this.playerService.startMatch();
     }
-    this.disableCell(id);
+    this.args.updatePlayer(this.args.item.id);
   }
 }

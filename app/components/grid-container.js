@@ -5,11 +5,28 @@ import { service } from '@ember/service';
 export default class GridContainerComponent extends Component {
   @service('track-players') playerService;
 
-  checkRows() {
-    for (const row of this.playerService.rows) {
+  rows = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+  ];
+
+  columns = [
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+  ];
+
+  diagonals = [
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
+  checkRows(gameData) {
+    for (const row of this.rows) {
       const rowWin =
-        row.every((cell) => this.playerService.GAME_DATA[cell].player === 'X') ||
-        row.every((cell) => this.playerService.GAME_DATA[cell].player === 'O');
+        row.every((cell) => gameData[cell].player === 'X') ||
+        row.every((cell) => gameData[cell].player === 'O');
 
       if (rowWin) {
         return true;
@@ -19,11 +36,11 @@ export default class GridContainerComponent extends Component {
     return false;
   }
 
-  checkColumns() {
-    for (const col of this.playerService.columns) {
+  checkColumns(gameData) {
+    for (const col of this.columns) {
       const colWin =
-        col.every((cell) => this.playerService.GAME_DATA[cell].player === 'X') ||
-        col.every((cell) => this.playerService.GAME_DATA[cell].player === 'O');
+        col.every((cell) => gameData[cell].player === 'X') ||
+        col.every((cell) => gameData[cell].player === 'O');
 
       if (colWin) {
         return true;
@@ -33,11 +50,11 @@ export default class GridContainerComponent extends Component {
     return false;
   }
 
-  checkDiagonals() {
-    for (const diagonal of this.playerService.diagonals) {
+  checkDiagonals(gameData) {
+    for (const diagonal of this.diagonals) {
       const diagonalWin =
-        diagonal.every((cell) => this.playerService.GAME_DATA[cell].player === 'X') ||
-        diagonal.every((cell) => this.playerService.GAME_DATA[cell].player === 'O');
+        diagonal.every((cell) => gameData[cell].player === 'X') ||
+        diagonal.every((cell) => gameData[cell].player === 'O');
 
       if (diagonalWin) {
         return true;
@@ -48,14 +65,16 @@ export default class GridContainerComponent extends Component {
   }
 
   checkMatchState = () => {
-    const isEveryCellClicked = this.playerService.GAME_DATA.every(
+    const gameData = this.playerService.getGameData();
+    const isEveryCellClicked = gameData.every(
       (cell) => cell.isCellClicked,
     );
     this.isMatchWon =
-      this.checkRows() || this.checkColumns() || this.checkDiagonals();
+      this.checkRows(gameData) || this.checkColumns(gameData) || this.checkDiagonals(gameData);
 
     if (this.isMatchWon) {
-      this.playerService.setWinningPlayer(this.playerService.currentPlayer);
+      const winningPlayer = this.playerService.currentPlayer === 'X' ? 'O' : 'X';
+      this.playerService.setWinningPlayer(winningPlayer);
       this.playerService.setIsMatchOver(true);
       return;
     }
@@ -66,16 +85,9 @@ export default class GridContainerComponent extends Component {
     }
   };
 
-  get gridSize() {
-    return this.playerService.GAME_DATA;
-  }
-
   @action
-  updateGameData(id) {
-    const cell = this.playerService.GAME_DATA.find((cell) => cell.id === id);
-    cell.isCellClicked = true;
-    cell.player = this.playerService.currentPlayer;
-
+  updatePlayer(id) {
+    this.playerService.updateCell(id); 
     this.checkMatchState();
   }
 }

@@ -6,7 +6,8 @@ export default class FooterComponent extends Component {
   @service('track-players') playerService;
 
   @action
-  resetView() {
+  resetState() {
+    this.playerService.resetGameData();
     const resetButton = document.getElementById('reset-button');
 
     resetButton.classList.add('beat');

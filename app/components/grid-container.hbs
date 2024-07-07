@@ -1,8 +1,8 @@
 <div class={{"grid-container"}}>
-  {{#each this.gridSize as |item|}}
+  {{#each this.playerService.gameData as |item|}}
     <GridContainer::GridItem
-      @id={{item.id}}
-      @updateGameData={{this.updateGameData}}
+      @item={{item}}
+      @updatePlayer={{this.updatePlayer}}
     />
   {{/each}}
 </div>

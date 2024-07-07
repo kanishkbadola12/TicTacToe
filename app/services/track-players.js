@@ -1,53 +1,55 @@
 import Service from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
+const GAME_DATA = [
+  { id: 0, isCellClicked: false, player: '' },
+  { id: 1, isCellClicked: false, player: '' },
+  { id: 2, isCellClicked: false, player: '' },
+  { id: 3, isCellClicked: false, player: '' },
+  { id: 4, isCellClicked: false, player: '' },
+  { id: 5, isCellClicked: false, player: '' },
+  { id: 6, isCellClicked: false, player: '' },
+  { id: 7, isCellClicked: false, player: '' },
+  { id: 8, isCellClicked: false, player: '' },
+];
+
 export default class TrackPlayersService extends Service {
   @tracked currentPlayer = 'X';
   @tracked winningPlayer = '';
-  @tracked isMatchStarted = false;
+  @tracked hasMatchStarted = false;
   @tracked isMatchOver = false;
+  @tracked gameData = [...GAME_DATA];
+  initialGameData = [...GAME_DATA];
 
-  @tracked
-  GAME_DATA = [
-    { id: 0, isCellClicked: false, player: '' },
-    { id: 1, isCellClicked: false, player: '' },
-    { id: 2, isCellClicked: false, player: '' },
-    { id: 3, isCellClicked: false, player: '' },
-    { id: 4, isCellClicked: false, player: '' },
-    { id: 5, isCellClicked: false, player: '' },
-    { id: 6, isCellClicked: false, player: '' },
-    { id: 7, isCellClicked: false, player: '' },
-    { id: 8, isCellClicked: false, player: '' },
-  ];
+  updateCell(id) {
+    this.gameData = this.gameData.map((cell) => {
+      if (cell.id === id) {
+        const updateCell = {
+          ...cell,
+          isCellClicked: true,
+          player: this.currentPlayer,
+        };
 
-  rows = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-  ];
+        const nextPlayer = this.currentPlayer === 'X' ? 'O' : 'X';
+        this.setCurrentPlayer(nextPlayer);
+        return updateCell;
+      }
 
-  columns = [
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-  ];
+      return cell;
+    });
+  }
 
-  diagonals = [
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
-  
-  getWinningPlayer() {
-    return this.winningPlayer;
+  resetGameData() {
+    this.showPlayerSelection = true;
+    this.gameData = [...this.initialGameData];
+  }
+
+  getGameData() {
+    return this.gameData;
   }
 
   setWinningPlayer(player) {
-    if(player === 'none') {
-        this.winningPlayer = player;
-        return;
-    }
-    
-    this.winningPlayer = player === 'X' ? 'O' : 'X';
+    this.winningPlayer = player;
   }
 
   setCurrentPlayer(player) {
@@ -58,7 +60,7 @@ export default class TrackPlayersService extends Service {
     this.isMatchOver = true;
   }
 
-  setIsMatchStarted() {
-    this.isMatchStarted = true;
+  startMatch() {
+    this.hasMatchStarted = true;
   }
 }
