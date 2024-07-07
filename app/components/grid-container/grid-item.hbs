@@ -1,0 +1,11 @@
+<button
+  id={{@id}}
+  type="button"
+  {{on "click" (fn this.updatePlayer @id)}}
+  class="grid-item {{if this.playerService.isMatchOver 'disable'}}"
+>
+
+  {{#if this.showPlayer}}
+    <span>{{this.player}}</span>
+  {{/if}}
+</button>

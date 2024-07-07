@@ -1,0 +1,34 @@
+<div class="header">
+  {{#if this.playerService.isMatchStarted}}
+    <div class="player-info">{{this.playerService.currentPlayer}}'s turn</div>
+  {{else}}
+    <div class="choose-player">Choose your player</div>
+    <div class="select-player">
+      <div class="radio-btn">
+        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="X">
+          <input
+            type="radio"
+            id="X"
+            class="mdl-radio__button"
+            name="options"
+            value="X"
+            checked
+            {{on "change" (fn this.updatePlayer "X")}}
+          />
+          <span class="mdl-radio__label">X</span>
+        </label>
+        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="O">
+          <input
+            type="radio"
+            id="O"
+            class="mdl-radio__button"
+            name="options"
+            value="0"
+            {{on "change" (fn this.updatePlayer "O")}}
+          />
+          <span class="mdl-radio__label">O</span>
+        </label>
+      </div>
+    </div>
+  {{/if}}
+</div>

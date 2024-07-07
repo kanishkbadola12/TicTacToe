@@ -1,0 +1,17 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 10px;
+  height: 65vh;
+  width: 50vw;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+  background: #fff;
+}
+
+.grid-container:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}

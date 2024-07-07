@@ -1,0 +1,36 @@
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.select-player {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+}
+
+.choose-player {
+    display: flex;
+    align-items: center;
+    font-size: 3rem;
+    color: #252422;
+}
+
+.radio-btn {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    height: 100%;
+    justify-content: space-evenly;
+}
+
+.mdl-radio__label {
+    font-size: 4rem;
+    font-weight: bolder;
+    color: white;
+    text-shadow: 2px 1px rgb(0 0 0 / 30%);
+}

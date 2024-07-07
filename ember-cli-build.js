@@ -7,5 +7,10 @@ module.exports = function (defaults) {
     // Add options here
   });
 
+  app.import('app/styles/components/header.css');
+  app.import('app/styles/components/footer.css');
+  app.import('app/styles/components/grid-container.css');
+  app.import('app/styles/components/grid-item.css');
+
   return app.toTree();
 };
