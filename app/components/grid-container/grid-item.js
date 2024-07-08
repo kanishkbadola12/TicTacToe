@@ -2,32 +2,20 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
+import animateCell from '../../helpers/animateCell';
 
 export default class GridItemComponent extends Component {
-  @service('track-players') playerService;
+  @service('game-service') gameService;
   @tracked item = this.args.item;
 
-  disableCell = (id) => {
-    const gridItem = document.getElementById(id);
-
-    gridItem.classList.add('beat');
-    gridItem.classList.add('disable');
-
-    gridItem.addEventListener('animationend', () => {
-      gridItem.classList.remove('beat');
-    });
-  };
-
-  get
-  isClickedOrMatchOver() {
-    return this.item.isCellClicked || this.playerService.isMatchOver;
+  get isClickedOrMatchOver() {
+    return this.item.isCellClicked || this.gameService.isMatchOver;
   }
 
   @action
   updatePlayer() {
-    if(!this.playerService.hasMatchStarted) {
-      this.playerService.startMatch();
-    }
+    this.gameService.setPlayerSelection(false);
     this.args.updatePlayer(this.args.item.id);
+    animateCell(this.args.item.id);
   }
 }

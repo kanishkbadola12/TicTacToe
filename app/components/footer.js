@@ -1,20 +1,22 @@
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
 import { action } from '@ember/object';
+import animateCell from '../helpers/animateCell';
 
 export default class FooterComponent extends Component {
-  @service('track-players') playerService;
+  @service('game-service') gameService;
 
+  get winner() {
+    const winner = this.gameService.winningPlayer;
+    if (winner !== '' && winner !== 'none') {
+      return `Player ${winner} has won the game! 🎉`;
+    } else {
+      return 'Match Tied 😯';
+    }
+  }
   @action
-  resetState() {
-    this.playerService.resetGameData();
-    const resetButton = document.getElementById('reset-button');
-
-    resetButton.classList.add('beat');
-    resetButton.classList.add('disable');
-
-    resetButton.addEventListener('animationend', () => {
-      resetButton.classList.remove('beat');
-    });
+  resetGame() {
+    this.gameService.resetGame();
+    animateCell('reset-button');
   }
 }

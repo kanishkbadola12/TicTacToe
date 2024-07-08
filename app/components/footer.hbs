@@ -1,11 +1,12 @@
-{{#if this.playerService.isMatchOver}}
-  <div class="footer">
-    <div class="player-info">Match won by:
-      {{this.playerService.winningPlayer}}</div>
-  </div>
+<div class="footer">
+{{#if this.gameService.isMatchOver}}
+    <div class="winner-info">
+      {{this.winner}}
+    </div>
 {{/if}}
 <button
   class="reset-button"
   id="reset-button"
-  {{on "click" this.resetState}}
+  {{on "click" this.resetGame}}
 >Reset</button>
+ </div>

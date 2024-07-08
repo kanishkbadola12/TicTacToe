@@ -3,10 +3,10 @@ import { action } from '@ember/object';
 import { service } from '@ember/service';
 
 export default class HeaderComponent extends Component {
-  @service('track-players') playerService;
+  @service('game-service') gameService;
 
   @action
   updatePlayer(selectedPlayer) {
-    this.playerService.setCurrentPlayer(selectedPlayer);
+    this.gameService.setCurrentPlayer(selectedPlayer);
   }
 }

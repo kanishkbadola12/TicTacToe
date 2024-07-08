@@ -1,5 +1,5 @@
-<div class={{"grid-container"}}>
-  {{#each this.playerService.gameData as |item|}}
+<div class="grid-container {{if this.gameService.showPlayerSelection "container-m" "container-l"}}">
+  {{#each this.gameService.gameData as |item|}}
     <GridContainer::GridItem
       @item={{item}}
       @updatePlayer={{this.updatePlayer}}

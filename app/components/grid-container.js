@@ -3,7 +3,7 @@ import { action } from '@ember/object';
 import { service } from '@ember/service';
 
 export default class GridContainerComponent extends Component {
-  @service('track-players') playerService;
+  @service('game-service') gameService;
 
   rows = [
     [0, 1, 2],
@@ -65,29 +65,26 @@ export default class GridContainerComponent extends Component {
   }
 
   checkMatchState = () => {
-    const gameData = this.playerService.getGameData();
-    const isEveryCellClicked = gameData.every(
-      (cell) => cell.isCellClicked,
-    );
-    this.isMatchWon =
-      this.checkRows(gameData) || this.checkColumns(gameData) || this.checkDiagonals(gameData);
+    const gameData = this.gameService.getGameData();
+    const isEveryCellClicked = gameData.every((cell) => cell.isCellClicked);
+    this.isMatchWon = this.checkRows(gameData) || this.checkColumns(gameData) || this.checkDiagonals(gameData);
 
     if (this.isMatchWon) {
-      const winningPlayer = this.playerService.currentPlayer === 'X' ? 'O' : 'X';
-      this.playerService.setWinningPlayer(winningPlayer);
-      this.playerService.setIsMatchOver(true);
+      const winningPlayer = this.gameService.currentPlayer === 'X' ? 'O' : 'X';
+      this.gameService.setWinningPlayer(winningPlayer);
+      this.gameService.setIsMatchOver(true);
       return;
     }
 
     if (isEveryCellClicked && !this.isMatchWon) {
-      this.playerService.setWinningPlayer('none');
-      this.playerService.setIsMatchOver(true);
+      this.gameService.setWinningPlayer('none');
+      this.gameService.setIsMatchOver(true);
     }
   };
 
   @action
   updatePlayer(id) {
-    this.playerService.updateCell(id); 
+    this.gameService.updateGameData(id);
     this.checkMatchState();
   }
 }

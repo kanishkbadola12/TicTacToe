@@ -13,35 +13,39 @@ const GAME_DATA = [
   { id: 8, isCellClicked: false, player: '' },
 ];
 
-export default class TrackPlayersService extends Service {
+export default class GameService extends Service {
   @tracked currentPlayer = 'X';
   @tracked winningPlayer = '';
-  @tracked hasMatchStarted = false;
   @tracked isMatchOver = false;
-  @tracked gameData = [...GAME_DATA];
-  initialGameData = [...GAME_DATA];
+  @tracked showPlayerSelection = true;
+  @tracked gameData = GAME_DATA;
 
-  updateCell(id) {
-    this.gameData = this.gameData.map((cell) => {
-      if (cell.id === id) {
-        const updateCell = {
-          ...cell,
-          isCellClicked: true,
-          player: this.currentPlayer,
-        };
+  updateGameData(id) {
+    const cellIndex = this.gameData.findIndex((cell) => cell.id === id);
 
-        const nextPlayer = this.currentPlayer === 'X' ? 'O' : 'X';
-        this.setCurrentPlayer(nextPlayer);
-        return updateCell;
-      }
+    const updatedCell = {
+      ...this.gameData[cellIndex],
+      isCellClicked: true,
+      player: this.currentPlayer,
+    };
+    
+    const updatedGameData = [
+      ...this.gameData.slice(0, cellIndex),
+      updatedCell,
+      ...this.gameData.slice(cellIndex + 1),
+    ];
 
-      return cell;
-    });
+    const nextPlayer = this.currentPlayer === 'X' ? 'O' : 'X';
+    this.setCurrentPlayer(nextPlayer);
+
+    this.gameData = updatedGameData;
   }
 
-  resetGameData() {
+  resetGame() {
+    this.gameData = [...GAME_DATA];
     this.showPlayerSelection = true;
-    this.gameData = [...this.initialGameData];
+    this.isMatchOver = false;
+    this.currentPlayer = 'X';
   }
 
   getGameData() {
@@ -60,7 +64,7 @@ export default class TrackPlayersService extends Service {
     this.isMatchOver = true;
   }
 
-  startMatch() {
-    this.hasMatchStarted = true;
+  setPlayerSelection(isVisible) {
+    this.showPlayerSelection = isVisible;
   }
 }

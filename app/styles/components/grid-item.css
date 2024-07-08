@@ -35,21 +35,56 @@
   }
 }
 
-@media (width <= 370px) {
+@media (width <=500px) {
+  .grid-item {
+    font-size: 5rem;
+    width: 5rem;
+  }
+}
+
+@media (width <=440px) {
+  .grid-item {
+    font-size: 4.5rem;
+    width: 4.5rem;
+  }
+}
+
+@media (width <=380px) {
   .grid-item {
     font-size: 4rem;
+    width: 4rem;
+  }
+}
+
+@media (width <=350px) {
+  .grid-item {
+    font-size: 3.5rem;
+    width: 3.5rem;
+  }
+}
+
+@media (width <=300px) {
+  .grid-item {
+    font-size: 3rem;
     width: 3rem;
   }
 }
 
-@media (width <= 280px) {
+@media (width <=260px) {
   .grid-item {
-    font-size: 3rem;
+    font-size: 2.5rem;
+    width: 2.5rem;
+  }
+}
+
+@media (width <=220px) {
+  .grid-item {
+    font-size: 2rem;
     width: 2rem;
   }
 }
 
-@media (width <= 190px) {
+@media (width <=180px) {
   .grid-item {
     font-size: 1.5rem;
     width: 1.5rem;
