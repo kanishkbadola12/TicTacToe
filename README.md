@@ -31,7 +31,30 @@
 ### Q. What you enjoyed most about the implementation.
 • I enjoyed learning the new framework in a  short period of time, and the overall development experience was particularly engaging due to its focus on game development. Additionaly I also enjoyed coding custom CSS for animations, styling to give the app a more personalized feel tailored to Feedback Fruits.
 
+## Concept:
 
+The Tic Tac Toe app is designed to provide a seamless and enjoyable gaming experience with the following features:
+
+<b>1. 3x3 Grid </b><br>
+• The game board consists of a 3x3 grid, which is the traditional layout for Tic Tac Toe. Each cell in the grid can be clicked to place a player's mark (either 'X' or 'O').
+
+<b>2. Player Selection </b><br>
+• At the start of the game, players can choose whether they want to be 'X' or 'O'. This selection determines which player goes first. The initial player is set to 'X' by default, but this can be changed before the game begins.
+
+<b>3. Turn Based </b><br>
+• Players take turns to place their marks on the grid. The app ensures that alternate turns are provided correctly. If 'X' mark the grid in it's turn then the next Turn would be given to 'O' and vice versa.
+
+<b>4. Game Logic </b><br>
+• The app checks for a winner after each move. A player wins by placing three of their marks in a horizontal, vertical, or diagonal row. If all cells are filled and no player has three in a row, the game ends in a draw otherwise the currently player with three in a row wins.
+
+<b>6. Reset Button </b><br>
+• The app features a reset button that allows players to start a new game at any time. When the reset button is pressed, the game board is cleared, and the default player is set to 'X'. This provides a quick and easy way to restart the game without refreshing the entire page.
+
+<b>7. Responsiveness </b><br>
+• The app is designed to be responsive, ensuring that it looks and functions well on various devices, including desktops, tablets, and smartphones. The user interface is simple and intuitive, making it easy for players to navigate and enjoy the game.
+
+<b>8. Interactive User Interface </b><br>
+• The user interface is designed to be interactive and visually appealing. Clear visual cues indicate whose turn it is, and winning combinations are highlighted to celebrate the player's victory or a match tie.
 
 ## Prerequisites
 
